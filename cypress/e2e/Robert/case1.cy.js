@@ -3,18 +3,31 @@
 describe('Case 1 - Basic Navigation and Interaction', () => {
 	it('visits Baidu, searches for cypress and asserts results', () => {
 		// Visit Baidu
-		cy.visit('https://www.sogou.com')
+		cy.visit('https://qualityassurance-amh-gbb-sit12.p2g.netd2.hsbc.com.hk/portalserver/onboarding/account-opening')
+        
+		cy.get('#apply-button').click()
+		cy.get('.cvyRXi > [data-testid="Button"]').click()
+		// 点击下拉菜单，打开选项列表
+        cy.get(':nth-child(3) > [data-testid="Dropdown"] > .widthChange > .css-1994fnm-control').click({ force: true });
 
-		// Type the query and submit. Use multiple selectors for robustness.
-		cy.get('[name="query"]').type('cypress{enter}')
+        // 选择第一个选项
+        cy.get('#react-select-2-option-0').click();
+		cy.get(':nth-child(4) > .sc-jrsJWt > [data-testid="TextInput"]').type('John')
+		cy.get(':nth-child(5) > .sc-jrsJWt > [data-testid="TextInput"]').type('Doe')
+		cy.get(':nth-child(6) > .sc-jrsJWt > [data-testid="TextInput"]').type('test@test.com')
+		cy.get('[name="LL012"]').type('852')
+		cy.get('[name="LL011"]').type('88888888')
+		cy.get(':nth-child(9) > [data-testid="Dropdown"] > .widthChange > .css-1994fnm-control > .css-1o3m3d8').click({ force: true })
+		cy.get('#react-select-3-option-2').click()
+        cy.get(':nth-child(10) > [data-testid="Dropdown"] > .widthChange > .css-1994fnm-control').click({ force: true })
+		cy.get('#react-select-4-option-0').click()
+		cy.get('[data-testid="Nav-Bar-Right"] > [data-testid="Button"]').click()
 
-		// Assert the search input on results page contains the query
-		cy.get('#querybox_up > .qborder > .qborder2 > [name="query"]').should('have.value', 'cypress')
 
-		// // Assert URL contains the query parameter (wd=cypress)
-		cy.url().should('include', 'sogou')
 
-		// // Assert the page shows results containing the term (case-insensitive)
-		cy.contains(/cypress/i).should('be.visible')
+	
 	})
 })
+
+
+
